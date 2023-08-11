@@ -7,28 +7,19 @@ import com.sun.tools.attach.VirtualMachine;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Field;
+import java.lang.management.ManagementFactory;
 
 public class AttachUtil {
-    public static void attach(String id, File in, String out) {
-        System.setProperty("java.library.path", AttachUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath().substring(1).replaceAll("/SkullCandy.jar", ""));
+    public static void attach(String agentPath) {
+        String name = ManagementFactory.getRuntimeMXBean().getName();
+        String pid = name.substring(0, name.indexOf('@'));
 
         try {
-            Field field = ClassLoader.class.getDeclaredField("sys_paths");
+            File agentFile = new File(agentPath);
+            VirtualMachine vm = VirtualMachine.attach(pid);
 
-            field.setAccessible(true);
-            field.set(null, null);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.loadLibrary("attach");
-
-        try {
-            VirtualMachine vm = VirtualMachine.attach(id);
-
-            vm.loadAgent(in.getAbsolutePath(), out);
-            vm.detach();
+            vm.loadAgent(agentFile.getAbsolutePath(), "");
+            VirtualMachine.attach(vm.id());
         } catch (AttachNotSupportedException | IOException | AgentLoadException | AgentInitializationException e) {
             throw new RuntimeException(e);
         }

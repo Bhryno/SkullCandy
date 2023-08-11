@@ -16,6 +16,13 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>minecraft</artifactId>
+            <version>1.8.9</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/minecraft-client-1.8.9.jar</systemPath>
+        </dependency>
+        <dependency>
             <groupId>com.sun</groupId>
             <artifactId>tools</artifactId>
             <version>1.8</version>
