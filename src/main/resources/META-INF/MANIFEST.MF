@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Main-Class: com.github.conditioner.skullcandy.Main
+Premain-Class: com.github.conditioner.skullcandy.Agent
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Can-Set-Native-Method-Prefix: true
