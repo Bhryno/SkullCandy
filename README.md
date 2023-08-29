@@ -72,7 +72,7 @@ public class SkullCandyAgent {
 + [x] Transforming
 + [x] Organise folder structure
 + [x] Documentation
-+ [ ] Successful test class
++ [x] Successful test class
 + [ ] QoL enhancements
 + [ ] Settings
 + [ ] Modules
